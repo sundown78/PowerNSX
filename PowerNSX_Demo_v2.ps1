@@ -15,8 +15,10 @@
     $nsxcluster = "labcloud-LAB"
     $nsxdatastore = "netapp_nfs_03"
 
-#Password-Encryption-Decryption-from-Hell-Function :-)
-function PasswordHell { 
+# TimeTheAwesome
+    $startclock = (Get-Date)
+
+#Password-Encryption-Decryption-from-Hell :-)
     $pwcsv = Import-Csv C:\PowerCLI\Passwords.csv
     #$pwcsv | out-gridview
 
@@ -34,9 +36,7 @@ function PasswordHell {
     $Bstr = $Marshal::SecureStringToBSTR($vcsapassword)
     $vcsapassword = $Marshal::PtrToStringAuto($Bstr)
     $Marshal::ZeroFreeBSTR($Bstr)
-}
-    PasswordHell
-
+    
 #Connect to NSX & vCenter
     connect-nsxserver -server "192.168.222.21" -username admin -password $nsxpassword -viusername administrator@vsphere.local -vipassword $vcsapassword -ViWarningAction "Ignore"
 
@@ -88,7 +88,6 @@ $CleanUp = @(
     {Get-NsxLogicalSwitch transitls | Remove-NsxLogicalSwitch -Confirm:$false}
 )
 
-
 function DeployTheAwesome { 
 
     foreach ( $step in $Deploy ) { 
@@ -115,6 +114,10 @@ function RushDeployTheAwesome {
         #execute (dot source) me in global scope
         . $step
     }
+
+    $endclock = (Get-Date)
+    $totalclock = [Math]::Round(($endclock-$startclock).totalseconds)
+    Write-Host -BackgroundColor:Black -ForegroundColor:Green "Status: All the magic happens in just $totalclock seconds!"
 }
 
 function CleanupTheAwesome { 
@@ -143,4 +146,8 @@ function RushCleanupTheAwesome {
         #execute (dot source) me in global scope
         . $step
     }
+
+    $endclock = (Get-Date)
+    $totalclock = [Math]::Round(($endclock-$startclock).totalseconds)
+    Write-Host -BackgroundColor:Black -ForegroundColor:Green "Status: All the magic happens in just $totalclock seconds!"
 }
