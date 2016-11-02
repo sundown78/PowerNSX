@@ -5,6 +5,9 @@
  my particular thanks therefore go to Nick Bradford, nbradford@vmware.com
  https://networkinferno.net/powernsx
  https://github.com/vmware/powernsx
+
+ GitRepo for this script:
+ https://github.com/sundown78/PowerNSX
  
  #>
 
@@ -12,7 +15,7 @@
     $nsxcluster = "labcloud-LAB"
     $nsxdatastore = "netapp_nfs_03"
 
-#Password-Encryption-Decryption-Hell-Function :-)
+#Password-Encryption-Decryption-from-Hell-Function :-)
 function PasswordHell { 
     $pwcsv = Import-Csv C:\PowerCLI\Passwords.csv
     #$pwcsv | out-gridview
